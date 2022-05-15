@@ -55,7 +55,7 @@ func (dec *AddressDecoderV2) AddressEncode(hash []byte, opts ...interface{}) (st
 
 //AddressDecode 地址解析
 func (dec *AddressDecoderV2) AddressDecode(addr string, opts ...interface{}) ([]byte, error) {
-	cfg := addressEncoder.ATOM_mainnetAddress
+	cfg := TERRA_mainnetAddress
 
 	decodeHash, err := addressEncoder.AddressDecode(addr, cfg)
 	if err != nil {
@@ -66,8 +66,7 @@ func (dec *AddressDecoderV2) AddressDecode(addr string, opts ...interface{}) ([]
 
 // AddressVerify 地址校验
 func (dec *AddressDecoderV2) AddressVerify(address string, opts ...interface{}) bool {
-	cfg := addressEncoder.ATOM_mainnetAddress
-
+	cfg := TERRA_mainnetAddress
 	_, err := addressEncoder.AddressDecode(address, cfg)
 	if err != nil {
 		return false
@@ -83,7 +82,7 @@ func (dec *AddressDecoderV2) PrivateKeyToWIF(priv []byte, isTestnet bool) (strin
 //PublicKeyToAddress 公钥转地址
 func (dec *AddressDecoderV2) PublicKeyToAddress(pub []byte, isTestnet bool) (string, error) {
 
-	cfg := addressEncoder.ATOM_mainnetAddress
+	cfg := TERRA_mainnetAddress
 
 	pkHash := owcrypt.Hash(pub, 32, owcrypt.HASH_ALG_HASH160)
 
