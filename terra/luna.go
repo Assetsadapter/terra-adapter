@@ -22,6 +22,10 @@ import (
 	"github.com/astaxie/beego/config"
 	"github.com/blocktree/openwallet/v2/log"
 	"github.com/blocktree/openwallet/v2/openwallet"
+
+	sdk "github.com/cosmos/cosmos-sdk/types"
+
+	core "github.com/terra-money/core/types"
 )
 
 //初始化配置流程
@@ -654,9 +658,22 @@ func (wm *WalletManager) LoadAssetsConfig(c config.Configer) error {
 	wm.Config.IsScanMemPool, _ = c.Bool("isScanMemPool")
 	wm.Config.DataDir = c.String("dataDir")
 
+	//init cosmos sdk config
+	cosmos_sdk_init()
 	//数据文件夹
 	wm.Config.makeDataDir()
 	return nil
+}
+
+func cosmos_sdk_init() {
+	sdkConfig := sdk.GetConfig()
+	sdkConfig.SetCoinType(core.CoinType)
+	sdkConfig.SetFullFundraiserPath(core.FullFundraiserPath)
+	sdkConfig.SetBech32PrefixForAccount(core.Bech32PrefixAccAddr, core.Bech32PrefixAccPub)
+	sdkConfig.SetBech32PrefixForValidator(core.Bech32PrefixValAddr, core.Bech32PrefixValPub)
+	sdkConfig.SetBech32PrefixForConsensusNode(core.Bech32PrefixConsAddr, core.Bech32PrefixConsPub)
+	sdkConfig.SetAddressVerifier(core.AddressVerifier)
+	sdkConfig.Seal()
 }
 
 //InitAssetsConfig 初始化默认配置
