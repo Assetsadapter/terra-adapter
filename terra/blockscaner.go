@@ -130,7 +130,7 @@ func (bs *ATOMBlockScanner) ScanBlockTask() {
 		}
 
 		//是否已到最新高度
-		if currentHeight >= maxHeight {
+		if currentHeight+10 >= maxHeight {
 			bs.wm.Log.Std.Info("block scanner has scanned full chain data. Current height: %d", maxHeight)
 			break
 		}
@@ -821,7 +821,7 @@ func (bs *ATOMBlockScanner) GetScannedBlockHeader() (*openwallet.BlockHeader, er
 		}
 
 		//就上一个区块链为当前区块
-		blockHeight = blockHeight - 1
+		blockHeight = blockHeight - 15
 
 	}
 	block, err = bs.wm.RestClient.getBlockByHeight(blockHeight)
