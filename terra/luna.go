@@ -673,7 +673,6 @@ func cosmos_sdk_init() {
 	sdkConfig.SetBech32PrefixForValidator(core.Bech32PrefixValAddr, core.Bech32PrefixValPub)
 	sdkConfig.SetBech32PrefixForConsensusNode(core.Bech32PrefixConsAddr, core.Bech32PrefixConsPub)
 	sdkConfig.SetAddressVerifier(core.AddressVerifier)
-	sdkConfig.Seal()
 }
 
 //InitAssetsConfig 初始化默认配置
